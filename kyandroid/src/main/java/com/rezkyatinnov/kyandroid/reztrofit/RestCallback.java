@@ -30,7 +30,7 @@ public abstract class RestCallback<T> implements Callback<T> {
         }
     }
 
-    abstract void onSuccess(Headers headers, T body);
-    abstract void onFailed(ErrorResponse error);
-    abstract void onCanceled();
+    public abstract void onSuccess(Headers headers, T body);
+    public abstract void onFailed(ErrorResponse error);
+    public abstract void onCanceled();
 }
