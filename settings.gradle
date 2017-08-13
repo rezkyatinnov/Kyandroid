@@ -1,1 +1,1 @@
-include ':app', ':kyandroid'
+include ':kyandroid-core'
