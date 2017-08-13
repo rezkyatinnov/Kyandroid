@@ -17,6 +17,7 @@ public class Session extends RealmObject {
     private String value;
     private boolean restHeader;
 
+    public Session(){}
     public Session(String key, String value) {
         this.key = key;
         this.value = value;
