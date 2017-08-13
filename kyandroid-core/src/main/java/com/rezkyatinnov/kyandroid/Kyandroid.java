@@ -17,7 +17,7 @@ public class Kyandroid {
         Reztrofit.getInstance().init(context,restBaseUrl,restService);
         SharedPrefUtils.getInstance().init(context,SharedPrefUtils.PREFERENCES_NAME,Context.MODE_PRIVATE);
     }
-    
+
     public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode){
         Realm.init(context);
         Reztrofit.getInstance().init(context,restBaseUrl,restService);
