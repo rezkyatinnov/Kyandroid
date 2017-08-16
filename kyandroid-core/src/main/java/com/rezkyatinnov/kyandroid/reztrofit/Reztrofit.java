@@ -4,8 +4,9 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rezkyatinnov.kyandroid.session.SessionNotFoundException;
+import com.rezkyatinnov.kyandroid.session.SessionObject;
 import com.rezkyatinnov.kyandroid.session.Session;
-import com.rezkyatinnov.kyandroid.session.SessionHelper;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.realm.RealmResults;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -61,10 +61,15 @@ public class Reztrofit<T> {
                 .addInterceptor(chain -> {
                     Request.Builder builder = chain.request().newBuilder();
 
-                    RealmResults<Session> sessions = SessionHelper.getRestHeaderSession();
+                    List<SessionObject> sessionObjects;
+                    try {
+                        sessionObjects = Session.getRestHeaders();
 
-                    for(Session session:sessions){
-                        builder.addHeader(session.getKey(), session.getValue());
+                        for(SessionObject session: sessionObjects){
+                            builder.addHeader(session.getKey(), session.getValue());
+                        }
+                    } catch (SessionNotFoundException e) {
+                        e.printStackTrace();
                     }
 
                     for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -107,6 +112,10 @@ public class Reztrofit<T> {
 
     public void clearInterceptors() {
         interceptors.clear();
+    }
+
+    public void clearHeaders() {
+        headers.clear();
     }
 
     public Context getContext() {

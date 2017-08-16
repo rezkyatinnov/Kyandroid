@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kyandroid.iml" filepath="$PROJECT_DIR$/kyandroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kyandroid.iml" filepath="$PROJECT_DIR$/Kyandroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/kyandroid-core/kyandroid.iml" filepath="$PROJECT_DIR$/kyandroid-core/kyandroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kyandroid-core/kyandroid-core.iml" filepath="$PROJECT_DIR$/kyandroid-core/kyandroid-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/kyandroid-core/kyandroid-core.iml" filepath="$PROJECT_DIR$/kyandroid-core/kyandroid-core.iml" />
     </modules>
   </component>

@@ -12,6 +12,8 @@ import io.realm.Realm;
 
 public class Kyandroid {
 
+    public static String DB_KEY = "";
+
     public static void init(Context context,String restBaseUrl, Class restService){
         Realm.init(context);
         Reztrofit.getInstance().init(context,restBaseUrl,restService);
