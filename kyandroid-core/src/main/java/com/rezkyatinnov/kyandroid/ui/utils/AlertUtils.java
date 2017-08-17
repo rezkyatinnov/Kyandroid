@@ -9,21 +9,52 @@ import android.support.v7.app.AlertDialog;
  */
 
 public class AlertUtils {
-    public static void showDialogDualActions(Context context, String title, String message, String positive, String negative, DialogInterface.OnClickListener positiveCallback, DialogInterface.OnClickListener negativeCallback){
+    public static void showDialogDualActions(Context context, String title, String message, String positive, String negative, DialogInterface.OnClickListener positiveCallback, DialogInterface.OnClickListener negativeCallback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(positive, positiveCallback)
                 .setNegativeButton(negative, negativeCallback);
-        // Create the AlertDialog object and return it
         builder.create().show();
     }
-    public static void showDialogSingleAction(Context context, String title, String message, String positive, DialogInterface.OnClickListener positiveCallback){
+
+    public static void showDialogDualActions(Context context, String title, String message, DialogInterface.OnClickListener positiveCallback, DialogInterface.OnClickListener negativeCallback) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", positiveCallback)
+                .setNegativeButton("Cancel", negativeCallback);
+        builder.create().show();
+    }
+
+    public static void showDialogDualActions(Context context, String message, DialogInterface.OnClickListener positiveCallback, DialogInterface.OnClickListener negativeCallback) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setPositiveButton("OK", positiveCallback)
+                .setNegativeButton("Cancel", negativeCallback);
+        builder.create().show();
+    }
+
+    public static void showDialogSingleAction(Context context, String title, String message, String positive, DialogInterface.OnClickListener positiveCallback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(positive, positiveCallback);
-        // Create the AlertDialog object and return it
+        builder.create().show();
+    }
+
+    public static void showDialogSingleAction(Context context, String title, String message, DialogInterface.OnClickListener positiveCallback) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", positiveCallback);
+        builder.create().show();
+    }
+
+    public static void showDialogSingleAction(Context context, String message, DialogInterface.OnClickListener positiveCallback) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setPositiveButton("OK", positiveCallback);
         builder.create().show();
     }
 }
