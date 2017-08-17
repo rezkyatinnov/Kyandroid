@@ -36,6 +36,7 @@ public class Reztrofit<T> {
     private List<Interceptor> interceptors = new ArrayList<>();
     private Map<String, String> headers = new HashMap<>();
     private static final Reztrofit instance = new Reztrofit();
+    private OkHttpClient client = new OkHttpClient();
 
     public static Reztrofit getInstance() {
         return instance;
@@ -54,7 +55,7 @@ public class Reztrofit<T> {
         final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient defaultHttpClient = new OkHttpClient.Builder()
+        client = new OkHttpClient.Builder()
                 .readTimeout(2 * 60, TimeUnit.SECONDS)
                 .connectTimeout(2 * 60, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
@@ -87,7 +88,7 @@ public class Reztrofit<T> {
 
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(defaultHttpClient)
+                .client(client)
                 .baseUrl(baseUrl)
                 .build();
 
@@ -120,5 +121,17 @@ public class Reztrofit<T> {
 
     public Context getContext() {
         return context;
+    }
+
+    public OkHttpClient getClient() {
+        return client;
+    }
+
+    public void setClient(OkHttpClient client) {
+        this.client = client;
+    }
+
+    public void cancelAllRequest(){
+        client.dispatcher().cancelAll();
     }
 }
