@@ -28,6 +28,12 @@ public class Session {
         }
     }
 
+    public static void remove(String key) {
+        QueryFilters filter = new QueryFilters();
+        filter.add(SessionObject.FIELD_KEY,key);
+        LocalData.delete(filter,SessionObject.class);
+    }
+
     public static List<SessionObject> getRestHeaders() throws SessionNotFoundException {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_REST_HEADER,true);

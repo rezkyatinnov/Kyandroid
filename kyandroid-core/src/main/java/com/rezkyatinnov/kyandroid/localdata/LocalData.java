@@ -9,6 +9,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 /**
  * Created by rezkyatinnov on 15/08/2017.
@@ -47,6 +48,14 @@ public class LocalData {
             return result;
         }
         throw new SessionNotFoundException("queried data is not found");
+    }
+
+    public static <O extends  RealmObject> void delete(QueryFilters filters, Class<O> clazz){
+        Realm realm = LocalData.getInstance();
+        RealmQuery<O> query = realm.where(clazz);
+        query = filters.copyToRealmQuery(query);
+        final RealmResults<O> results = query.findAll();
+        realm.executeTransaction(realm1 -> results.deleteAllFromRealm());
     }
 
     public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
