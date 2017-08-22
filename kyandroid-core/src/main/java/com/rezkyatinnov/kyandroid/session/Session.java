@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Session {
 
-    public static void save(SessionObject sessionObject, LocalData.OnTransactionCallback callback){
-        LocalData.saveOrUpdate(sessionObject,callback);
+    public static void save(SessionObject sessionObject){
+        LocalData.saveOrUpdate(sessionObject);
     }
 
     public static SessionObject get(String key) throws SessionNotFoundException {

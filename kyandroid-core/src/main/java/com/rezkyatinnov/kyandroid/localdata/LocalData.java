@@ -18,20 +18,24 @@ import io.realm.RealmResults;
 public class LocalData {
 
     public static Realm getInstance(){
-        if(Kyandroid.DB_KEY.isEmpty()) {
+        if(Kyandroid.getDbKey().isEmpty()) {
             return Realm.getDefaultInstance();
         }else{
-            Kyandroid.DB_KEY.getBytes();
+            Kyandroid.getDbKey().getBytes();
             RealmConfiguration config = new RealmConfiguration.Builder()
-                    .encryptionKey(Kyandroid.DB_KEY.getBytes())
+                    .encryptionKey(Kyandroid.getDbKey().getBytes())
                     .build();
             return Realm.getInstance(config);
         }
     }
 
+    public static <O extends RealmObject> void saveOrUpdate(O object) {
+        Realm realm = LocalData.getInstance();
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(object));
+    }
+
     public static <O extends RealmObject> void saveOrUpdate(O object, OnTransactionCallback callback) {
         Realm realm = LocalData.getInstance();
-
         realm.executeTransactionAsync(
                 realm1 -> realm1.copyToRealmOrUpdate(object),
                 callback::onSuccess,

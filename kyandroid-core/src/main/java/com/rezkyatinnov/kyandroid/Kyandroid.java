@@ -12,7 +12,7 @@ import io.realm.Realm;
 
 public class Kyandroid {
 
-    public static String DB_KEY = "";
+    private static String DB_KEY = "";
 
     public static void init(Context context,String restBaseUrl, Class restService){
         Realm.init(context);
@@ -26,4 +26,22 @@ public class Kyandroid {
         SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
     }
 
+    public static String getDbKey() {
+        return DB_KEY;
+    }
+
+    public static void setDbKey(String dbKey) throws DbKeyWrongLengthException  {
+        if(dbKey.length()==64) {
+            DB_KEY = dbKey;
+        } else {
+            throw new DbKeyWrongLengthException("DB Key must be 64 length String");
+        }
+    }
+
+    public static class DbKeyWrongLengthException extends Exception {
+
+        public DbKeyWrongLengthException(String s) {
+            super(s);
+        }
+    }
 }
