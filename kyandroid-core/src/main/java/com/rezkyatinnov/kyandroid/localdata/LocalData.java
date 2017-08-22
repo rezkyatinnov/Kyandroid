@@ -67,7 +67,8 @@ public class LocalData {
         Realm realm = LocalData.getInstance();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
-        return realm.copyFromRealm(query.findAll());
+        List<O> results = query.findAll();
+        return results;
     }
 
     public static abstract class OnTransactionCallback implements Realm.Transaction.OnSuccess, Realm.Transaction.OnError {
