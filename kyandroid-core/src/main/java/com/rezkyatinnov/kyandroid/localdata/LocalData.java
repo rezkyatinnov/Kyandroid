@@ -62,12 +62,12 @@ public class LocalData {
         realm.executeTransaction(realm1 -> results.deleteAllFromRealm());
     }
 
-    public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
+    public static <O extends RealmObject> RealmResults<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
 
         Realm realm = LocalData.getInstance();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
-        List<O> results = query.findAll();
+        RealmResults<O> results = query.findAll();
         return results;
     }
 

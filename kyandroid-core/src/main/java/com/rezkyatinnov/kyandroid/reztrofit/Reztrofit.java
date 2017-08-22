@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.realm.RealmResults;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -62,7 +63,7 @@ public class Reztrofit<T> {
                 .addInterceptor(chain -> {
                     Request.Builder builder = chain.request().newBuilder();
 
-                    List<SessionObject> sessionObjects;
+                    RealmResults<SessionObject> sessionObjects;
                     try {
                         sessionObjects = Session.getRestHeaders();
 

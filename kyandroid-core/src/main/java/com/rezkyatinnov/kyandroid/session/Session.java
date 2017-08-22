@@ -6,6 +6,8 @@ import com.rezkyatinnov.kyandroid.localdata.QueryFilters;
 
 import java.util.List;
 
+import io.realm.RealmResults;
+
 /**
  * Created by rezkya on 8/13/17.
  */
@@ -34,7 +36,7 @@ public class Session {
         LocalData.delete(filter,SessionObject.class);
     }
 
-    public static List<SessionObject> getRestHeaders() throws SessionNotFoundException {
+    public static RealmResults<SessionObject> getRestHeaders() throws SessionNotFoundException {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_REST_HEADER,true);
         try {
