@@ -61,10 +61,12 @@ public class LocalData {
 
     public static <O extends  RealmObject> void delete(QueryFilters filters, Class<O> clazz){
         Realm realm = LocalData.getInstance();
+        realm.beginTransaction();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
         final RealmResults<O> results = query.findAll();
         results.deleteAllFromRealm();
+        realm.commitTransaction();
         realm.close();
     }
 
