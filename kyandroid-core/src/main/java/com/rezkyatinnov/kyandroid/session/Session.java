@@ -36,7 +36,7 @@ public class Session {
         LocalData.delete(filter,SessionObject.class);
     }
 
-    public static RealmResults<SessionObject> getRestHeaders() throws SessionNotFoundException {
+    public static List<SessionObject> getRestHeaders() throws SessionNotFoundException {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_REST_HEADER,true);
         try {

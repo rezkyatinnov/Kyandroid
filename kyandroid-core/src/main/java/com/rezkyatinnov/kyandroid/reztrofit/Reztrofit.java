@@ -63,7 +63,7 @@ public class Reztrofit<T> {
                 .addInterceptor(chain -> {
                     Request.Builder builder = chain.request().newBuilder();
 
-                    RealmResults<SessionObject> sessionObjects;
+                    List<SessionObject> sessionObjects;
                     try {
                         sessionObjects = Session.getRestHeaders();
 
