@@ -50,10 +50,11 @@ public class LocalData {
         Realm realm = LocalData.getInstance();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
-        O result = realm.copyFromRealm(query.findFirst());
-        realm.close();
+        O result = query.findFirst();
         if(result != null){
-            return result;
+            O finalResult = realm.copyFromRealm(result);
+            realm.close();
+            return finalResult;
         }
         throw new SessionNotFoundException("queried data is not found");
     }
