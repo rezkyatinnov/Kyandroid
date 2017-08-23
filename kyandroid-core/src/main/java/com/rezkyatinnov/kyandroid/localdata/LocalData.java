@@ -31,7 +31,10 @@ public class LocalData {
 
     public static <O extends RealmObject> void saveOrUpdate(O object) {
         Realm realm = LocalData.getInstance();
-        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(object));
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(object);
+        realm.commitTransaction();
+        realm.close();
     }
 
     public static <O extends RealmObject> void saveOrUpdate(O object, OnTransactionCallback callback) {
@@ -47,7 +50,8 @@ public class LocalData {
         Realm realm = LocalData.getInstance();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
-        O result = query.findFirst();
+        O result = realm.copyFromRealm(query.findFirst());
+        realm.close();
         if(result != null){
             return result;
         }
@@ -59,15 +63,17 @@ public class LocalData {
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
         final RealmResults<O> results = query.findAll();
-        realm.executeTransaction(realm1 -> results.deleteAllFromRealm());
+        results.deleteAllFromRealm();
+        realm.close();
     }
 
-    public static <O extends RealmObject> RealmResults<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
+    public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
 
         Realm realm = LocalData.getInstance();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
-        RealmResults<O> results = query.findAll();
+        List<O> results = realm.copyFromRealm(query.findAll());
+        realm.close();
         return results;
     }
 
