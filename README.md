@@ -14,16 +14,16 @@ See complete guide of install by jitpack [here](https://jitpack.io/#rezkyatinnov
 
 ### gradle
 #### 1. Add the JitPack repository to your build file
-```
+```groovy
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 #### 2. Add the dependency
-```
+```groovy
 dependencies {
     compile 'com.github.rezkyatinnov:kyandroid:X.XX.XXX'
 }
