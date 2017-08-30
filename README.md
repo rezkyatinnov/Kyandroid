@@ -25,7 +25,7 @@ allprojects {
 #### 2. Add the dependency
 ```groovy
 dependencies {
-    compile 'com.github.rezkyatinnov:kyandroid:X.XX.XXX'
+    compile 'com.github.rezkyatinnov:kyandroid:1.0.0-rc1'
 }
 ```
 
