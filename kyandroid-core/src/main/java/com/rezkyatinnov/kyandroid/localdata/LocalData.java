@@ -10,21 +10,36 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
-import io.realm.annotations.RealmModule;
 
 /**
  * Created by rezkyatinnov on 15/08/2017.
  */
 
 public class LocalData {
-    @RealmModule(library = true, allClasses = true)
-    public static class KyandroidModule {
+    public static Realm getRealm(){
+        if(Kyandroid.getDbKey().isEmpty()) {
+            RealmConfiguration config = new RealmConfiguration.Builder()
+                    .name(Kyandroid.getSchemaName())
+                    .schemaVersion(Kyandroid.getSchemaVersion())
+                    .modules(Kyandroid.getRealmModule())
+                    .build();
+            return Realm.getInstance(config);
+        }else{
+            Kyandroid.getDbKey().getBytes();
+            RealmConfiguration config = new RealmConfiguration.Builder()
+                    .encryptionKey(Kyandroid.getDbKey().getBytes())
+                    .name(Kyandroid.getSchemaName())
+                    .schemaVersion(Kyandroid.getSchemaVersion())
+                    .modules(Kyandroid.getRealmModule())
+                    .build();
+            return Realm.getInstance(config);
+        }
     }
-    public static Realm getInstance(){
+    public static Realm getKyandroidRealm(){
         if(Kyandroid.getDbKey().isEmpty()) {
             RealmConfiguration config = new RealmConfiguration.Builder()
                     .name("kyandroid.realm")
-                    .modules(new KyandroidModule())
+                    .modules(new KyandroidRealmModule())
                     .build();
             return Realm.getInstance(config);
         }else{
@@ -32,14 +47,18 @@ public class LocalData {
             RealmConfiguration config = new RealmConfiguration.Builder()
                     .encryptionKey(Kyandroid.getDbKey().getBytes())
                     .name("kyandroid.realm")
-                    .modules(new KyandroidModule())
+                    .modules(new KyandroidRealmModule())
                     .build();
             return Realm.getInstance(config);
         }
     }
 
     public static <O extends RealmObject> void saveOrUpdate(O object) {
-        Realm realm = LocalData.getInstance();
+        saveOrUpdate(LocalData.getRealm(),object);
+    }
+
+    public static <O extends RealmObject> void saveOrUpdate(Realm realmInstance, O object) {
+        Realm realm = realmInstance;
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(object);
         realm.commitTransaction();
@@ -47,7 +66,11 @@ public class LocalData {
     }
 
     public static <O extends RealmObject> void saveOrUpdate(O object, OnTransactionCallback callback) {
-        Realm realm = LocalData.getInstance();
+        saveOrUpdate(LocalData.getRealm(),object,callback);
+    }
+
+    public static <O extends RealmObject> void saveOrUpdate(Realm realmInstance,O object, OnTransactionCallback callback) {
+        Realm realm = realmInstance;
         realm.executeTransactionAsync(
                 realm1 -> realm1.copyToRealmOrUpdate(object),
                 callback::onSuccess,
@@ -56,7 +79,11 @@ public class LocalData {
     }
 
     public static <O extends  RealmObject> O get(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
-        Realm realm = LocalData.getInstance();
+        return get(LocalData.getRealm(),filters,clazz);
+    }
+
+    public static <O extends  RealmObject> O get(Realm realmInstance, QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
+        Realm realm = realmInstance;
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
         O result = query.findFirst();
@@ -69,7 +96,11 @@ public class LocalData {
     }
 
     public static <O extends  RealmObject> void delete(QueryFilters filters, Class<O> clazz){
-        Realm realm = LocalData.getInstance();
+        delete(LocalData.getRealm(),filters,clazz);
+    }
+
+    public static <O extends  RealmObject> void delete(Realm realmInstance, QueryFilters filters, Class<O> clazz){
+        Realm realm = realmInstance;
         realm.beginTransaction();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
@@ -80,8 +111,11 @@ public class LocalData {
     }
 
     public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
+        return getList(LocalData.getRealm(),filters,clazz);
+    }
 
-        Realm realm = LocalData.getInstance();
+    public static <O extends RealmObject> List<O> getList(Realm realmInstance, QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
+        Realm realm = LocalData.getRealm();
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
         List<O> results = realm.copyFromRealm(query.findAll());
