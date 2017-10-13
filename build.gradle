@@ -35,5 +35,5 @@ project.ext.minSdkVersion = 15
 project.ext.targetSdkVersion = 26
 project.ext.googleAPIsVersion = "26.0.0"
 
-project.ext.publishVersionCode = 19
-project.ext.publishVersionName = "1.0.0-rc2"
+project.ext.publishVersionCode = 21
+project.ext.publishVersionName = "1.0.0-rc4"
