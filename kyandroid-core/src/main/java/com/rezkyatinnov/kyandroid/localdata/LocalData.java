@@ -10,20 +10,29 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.annotations.RealmModule;
 
 /**
  * Created by rezkyatinnov on 15/08/2017.
  */
 
 public class LocalData {
-
+    @RealmModule(library = true, allClasses = true)
+    public static class KyandroidModule {
+    }
     public static Realm getInstance(){
         if(Kyandroid.getDbKey().isEmpty()) {
-            return Realm.getDefaultInstance();
+            RealmConfiguration config = new RealmConfiguration.Builder()
+                    .name("kyandroid.realm")
+                    .modules(new KyandroidModule())
+                    .build();
+            return Realm.getInstance(config);
         }else{
             Kyandroid.getDbKey().getBytes();
             RealmConfiguration config = new RealmConfiguration.Builder()
                     .encryptionKey(Kyandroid.getDbKey().getBytes())
+                    .name("kyandroid.realm")
+                    .modules(new KyandroidModule())
                     .build();
             return Realm.getInstance(config);
         }
