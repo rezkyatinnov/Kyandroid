@@ -13,6 +13,9 @@ import io.realm.Realm;
 public class Kyandroid {
 
     private static String DB_KEY = "";
+    private static String SCHEMA_NAME = "";
+    private static long SCHEMA_VERSION = 1;
+    private static Object REALM_MODULE = null;
 
     public static void init(Context context,String restBaseUrl, Class restService){
         Realm.init(context);
@@ -26,8 +29,26 @@ public class Kyandroid {
         SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
     }
 
+    public static void setDefaultRealmConfig(String schemaName, long schemaVersion, Object moduleObject){
+        SCHEMA_NAME = schemaName;
+        SCHEMA_VERSION = schemaVersion;
+        REALM_MODULE = moduleObject;
+    }
+
     public static String getDbKey() {
         return DB_KEY;
+    }
+
+    public static String getSchemaName() {
+        return SCHEMA_NAME;
+    }
+
+    public static long getSchemaVersion() {
+        return SCHEMA_VERSION;
+    }
+
+    public static Object getRealmModule() {
+        return REALM_MODULE;
     }
 
     public static void setDbKey(String dbKey) throws DbKeyWrongLengthException  {
