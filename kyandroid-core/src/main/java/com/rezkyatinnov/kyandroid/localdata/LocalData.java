@@ -21,7 +21,7 @@ public class LocalData {
             RealmConfiguration config = new RealmConfiguration.Builder()
                     .name(Kyandroid.getSchemaName())
                     .schemaVersion(Kyandroid.getSchemaVersion())
-                    .modules(Kyandroid.getRealmModule())
+                    .modules(Kyandroid.getRealmBasemodule(), Kyandroid.getRealmModule())
                     .build();
             return Realm.getInstance(config);
         }else{
@@ -30,7 +30,7 @@ public class LocalData {
                     .encryptionKey(Kyandroid.getDbKey().getBytes())
                     .name(Kyandroid.getSchemaName())
                     .schemaVersion(Kyandroid.getSchemaVersion())
-                    .modules(Kyandroid.getRealmModule())
+                    .modules(Kyandroid.getRealmBasemodule(), Kyandroid.getRealmModule())
                     .build();
             return Realm.getInstance(config);
         }
