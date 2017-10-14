@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0-rc5] - 2017-10-14
+### Fixed
+- multimodule realm with basemodule
+
 ## [1.0.0-rc4] - 2017-10-14
 ### Fixed
 - multimodule realm
@@ -22,7 +26,8 @@ All notable changes to this project will be documented in this file.
 - session management using localdata
 
 
-[Unreleased]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc4...develop
+[Unreleased]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc5...develop
+[1.0.0-rc5]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc4...1.0.0-rc5
 [1.0.0-rc4]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc3...1.0.0-rc4
 [1.0.0-rc3]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc2...1.0.0-rc3
 [1.0.0-rc2]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc1...1.0.0-rc2
