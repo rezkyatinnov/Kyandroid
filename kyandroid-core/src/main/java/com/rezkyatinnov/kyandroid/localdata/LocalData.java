@@ -25,7 +25,6 @@ public class LocalData {
                     .build();
             return Realm.getInstance(config);
         }else{
-            Kyandroid.getDbKey().getBytes();
             RealmConfiguration config = new RealmConfiguration.Builder()
                     .encryptionKey(Kyandroid.getDbKey().getBytes())
                     .name(Kyandroid.getSchemaName())
@@ -115,7 +114,7 @@ public class LocalData {
     }
 
     public static <O extends RealmObject> List<O> getList(Realm realmInstance, QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
-        Realm realm = LocalData.getRealm();
+        Realm realm = realmInstance;
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
         List<O> results = realm.copyFromRealm(query.findAll());

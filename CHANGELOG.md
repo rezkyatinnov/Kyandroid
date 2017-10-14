@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0-rc6] - 2017-10-15
+### Fixed
+- fix get session list from localdata getlist with parameterized realm
+
 ## [1.0.0-rc5] - 2017-10-14
 ### Fixed
 - multimodule realm with basemodule
@@ -26,7 +30,8 @@ All notable changes to this project will be documented in this file.
 - session management using localdata
 
 
-[Unreleased]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc5...develop
+[Unreleased]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc6...develop
+[1.0.0-rc6]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc5...1.0.0-rc6
 [1.0.0-rc5]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc4...1.0.0-rc5
 [1.0.0-rc4]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc3...1.0.0-rc4
 [1.0.0-rc3]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc2...1.0.0-rc3
