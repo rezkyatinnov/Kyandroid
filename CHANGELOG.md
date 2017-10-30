@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0-rc8] - 2017-10-30
+### Fixed
+- upgrade gradle to 4.1 to support android studio 3
+
 ## [1.0.0-rc7] - 2017-10-30
 ### Added
 - ReactiveX dependencies
@@ -35,7 +39,8 @@ All notable changes to this project will be documented in this file.
 - session management using localdata
 
 
-[Unreleased]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc7...develop
+[Unreleased]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc8...develop
+[1.0.0-rc8]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc7...1.0.0-rc8
 [1.0.0-rc7]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc6...1.0.0-rc7
 [1.0.0-rc6]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc5...1.0.0-rc6
 [1.0.0-rc5]: https://github.com/rezkyatinnov/kyandroid/compare/1.0.0-rc4...1.0.0-rc5
