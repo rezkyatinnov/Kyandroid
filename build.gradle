@@ -30,10 +30,10 @@ task clean(type: Delete) {
 }
 
 project.ext.compileSdkVersion = 26
-project.ext.buildToolsVersion = "26.0.0"
+project.ext.buildToolsVersion = "26.0.2"
 project.ext.minSdkVersion = 15
 project.ext.targetSdkVersion = 26
-project.ext.googleAPIsVersion = "26.0.0"
+project.ext.googleAPIsVersion = "26.0.2"
 
-project.ext.publishVersionCode = 24
-project.ext.publishVersionName = "1.0.0-rc7"
+project.ext.publishVersionCode = 25
+project.ext.publishVersionName = "1.0.0-rc8"
