@@ -13,21 +13,57 @@ import io.realm.Realm;
 public class Kyandroid {
 
     private static String DB_KEY = "";
-    private static String SCHEMA_NAME = "";
+    private static String SCHEMA_NAME = "kyanroidapp.realm";
     private static long SCHEMA_VERSION = 1;
     private static Object REALM_BASEMODULE;
     private static Object[] REALM_MODULES;
 
+    /**
+     *
+     * @deprecated Do not use this method! use init(Context context,String restBaseUrl, Class restService, Object baseRealmModule, Object realmModules)
+     */
+    @Deprecated
     public static void init(Context context,String restBaseUrl, Class restService){
         Realm.init(context);
-        Reztrofit.getInstance().init(context,restBaseUrl,restService);
+        Reztrofit.getInstance().init(context,restBaseUrl,restService,false);
         SharedPrefUtils.getInstance().init(context,SharedPrefUtils.PREFERENCES_NAME,Context.MODE_PRIVATE);
     }
 
+    public static void init(Context context,String restBaseUrl, Class restService, Boolean enableRx, Object baseRealmModule, Object... realmModules){
+        Realm.init(context);
+        Reztrofit.getInstance().init(context,restBaseUrl,restService,enableRx);
+        SharedPrefUtils.getInstance().init(context,SharedPrefUtils.PREFERENCES_NAME,Context.MODE_PRIVATE);
+        REALM_BASEMODULE = baseRealmModule;
+        REALM_MODULES = realmModules;
+    }
+
+    /**
+     *
+     * @deprecated Do not use this method! use init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode, Object baseRealmModule, Object... realmModules)
+     */
+    @Deprecated
     public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode){
         Realm.init(context);
-        Reztrofit.getInstance().init(context,restBaseUrl,restService);
+        Reztrofit.getInstance().init(context,restBaseUrl,restService,false);
         SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
+    }
+
+    public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode, Boolean enableRx, Object baseRealmModule, Object... realmModules){
+        Realm.init(context);
+        Reztrofit.getInstance().init(context,restBaseUrl,restService,enableRx);
+        SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
+        REALM_BASEMODULE = baseRealmModule;
+        REALM_MODULES = realmModules;
+    }
+
+    public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode, String schemaName, long schemaVersion, Boolean enableRx, Object baseRealmModule, Object... realmModules){
+        Realm.init(context);
+        Reztrofit.getInstance().init(context,restBaseUrl,restService,enableRx);
+        SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
+        REALM_BASEMODULE = baseRealmModule;
+        REALM_MODULES = realmModules;
+        SCHEMA_NAME = schemaName;
+        SCHEMA_VERSION = schemaVersion;
     }
 
     public static void setDefaultRealmConfig(String schemaName, long schemaVersion,Object baseModule, Object... moduleObjects){
@@ -35,6 +71,22 @@ public class Kyandroid {
         REALM_BASEMODULE = baseModule;
         SCHEMA_VERSION = schemaVersion;
         REALM_MODULES = moduleObjects;
+    }
+
+    public static void setSchemaName(String schemaName) {
+        SCHEMA_NAME = schemaName;
+    }
+
+    public static void setSchemaVersion(long schemaVersion) {
+        SCHEMA_VERSION = schemaVersion;
+    }
+
+    public static void setRealmBasemodule(Object realmBasemodule) {
+        REALM_BASEMODULE = realmBasemodule;
+    }
+
+    public static void setRealmModules(Object... realmModules) {
+        REALM_MODULES = realmModules;
     }
 
     public static String getDbKey() {

@@ -21,6 +21,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+//import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -48,7 +50,7 @@ public class Reztrofit<T> {
         interceptors = new ArrayList<>();
     }
 
-    public void init(Context context, String baseUrl, Class<T> interfaceClass) {
+    public void init(Context context, String baseUrl, Class<T> interfaceClass, Boolean enableRx) {
         this.context = context;
         this.baseUrl = baseUrl;
         this.interfaceClass = interfaceClass;
@@ -87,11 +89,20 @@ public class Reztrofit<T> {
                 .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
                 .create();
 
-        retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .baseUrl(baseUrl)
-                .build();
+        if(enableRx) {
+            retrofit = new Retrofit.Builder()
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(client)
+                    .baseUrl(baseUrl)
+                    .build();
+        }else{
+            retrofit = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(client)
+                    .baseUrl(baseUrl)
+                    .build();
+        }
 
         endpoint = retrofit.create(this.interfaceClass);
     }
