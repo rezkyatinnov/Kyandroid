@@ -8,6 +8,8 @@ A reusable libraries wrapper to kick start an android project. Current version f
 - Rest client using Retrofit
 - Local data management using Realm
 - Session Management using LocalData on Realm
+- RxJava/RxJava2 enable
+- optional use of Rx Observer as callback on Reztrofit
 
 ## Install
 See complete guide of install by jitpack [here](https://jitpack.io/#rezkyatinnov/kyandroid)
@@ -25,7 +27,7 @@ allprojects {
 #### 2. Add the dependency
 ```groovy
 dependencies {
-    compile 'com.github.rezkyatinnov:kyandroid:1.0.0-rc1'
+    compile 'com.github.rezkyatinnov:kyandroid:1.0.0-rc7'
 }
 ```
 
@@ -39,8 +41,15 @@ class ExampleApp: Application() {
         super.onCreate()
         Kyandroid.setDbKey("replace this with 64 long string")
         Kyandroid.init(this,
-                "http://api.example.com/", ExampleRestService::class.java,
-                "Shared Preff Name",Context.MODE_PRIVATE)
+                "http://api.example.com/", 
+                ExampleRestService::class.java,
+                "Shared Preff Name", 
+                Context.MODE_PRIVATE,
+                "SCHEMA_NAME",
+                1,
+                true,
+                KyandroidRealmModule(),
+                ExampleRealmModule())
     }
 }
 ```
@@ -52,8 +61,15 @@ public class ExampleApp extends Application {
         super.onCreate();
         Kyandroid.setDbKey("replace this with 64 long string");
         Kyandroid.init(this,
-                "http://api.example.com/", ExampleRestService.class,
-                "Shared Preff Name",Context.MODE_PRIVATE);
+                "http://api.example.com/", 
+                ExampleRestService.class,
+                "Shared Preff Name",
+                Context.MODE_PRIVATE,
+                "SCHEMA_NAME",
+                1,
+                true,
+                KyandroidRealmModule(),
+                ExampleRealmModule());
     }
 }
 ```
