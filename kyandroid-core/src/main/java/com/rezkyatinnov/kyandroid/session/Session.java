@@ -13,14 +13,14 @@ import java.util.List;
 public class Session {
 
     public static void save(SessionObject sessionObject){
-        LocalData.saveOrUpdate(LocalData.getKyandroidRealm(), sessionObject);
+        LocalData.saveOrUpdate(LocalData.getRealm(), sessionObject);
     }
 
     public static SessionObject get(String key) throws SessionNotFoundException {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_KEY,key);
         try {
-            SessionObject result = LocalData.get(LocalData.getKyandroidRealm(), filter,SessionObject.class);
+            SessionObject result = LocalData.get(LocalData.getRealm(), filter,SessionObject.class);
             return result;
         } catch (LocalDataNotFoundException e) {
             e.printStackTrace();
@@ -31,14 +31,14 @@ public class Session {
     public static void remove(String key) {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_KEY,key);
-        LocalData.delete(LocalData.getKyandroidRealm(), filter,SessionObject.class);
+        LocalData.delete(LocalData.getRealm(), filter,SessionObject.class);
     }
 
     public static List<SessionObject> getRestHeaders() throws SessionNotFoundException {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_REST_HEADER,true);
         try {
-            return LocalData.getList(LocalData.getKyandroidRealm(), filter,SessionObject.class);
+            return LocalData.getList(LocalData.getRealm(), filter,SessionObject.class);
         } catch (LocalDataNotFoundException e) {
             e.printStackTrace();
             throw new SessionNotFoundException("SessionObject with "+SessionObject.FIELD_REST_HEADER+" = true is not found");

@@ -34,23 +34,6 @@ public class LocalData {
             return Realm.getInstance(config);
         }
     }
-    public static Realm getKyandroidRealm(){
-        if(Kyandroid.getDbKey().isEmpty()) {
-            RealmConfiguration config = new RealmConfiguration.Builder()
-                    .name("kyandroid.realm")
-                    .modules(new KyandroidRealmModule())
-                    .build();
-            return Realm.getInstance(config);
-        }else{
-            Kyandroid.getDbKey().getBytes();
-            RealmConfiguration config = new RealmConfiguration.Builder()
-                    .encryptionKey(Kyandroid.getDbKey().getBytes())
-                    .name("kyandroid.realm")
-                    .modules(new KyandroidRealmModule())
-                    .build();
-            return Realm.getInstance(config);
-        }
-    }
 
     public static <O extends RealmObject> void saveOrUpdate(O object) {
         saveOrUpdate(LocalData.getRealm(),object);
@@ -91,6 +74,7 @@ public class LocalData {
             realm.close();
             return finalResult;
         }
+        realm.close();
         throw new SessionNotFoundException("queried data is not found");
     }
 
