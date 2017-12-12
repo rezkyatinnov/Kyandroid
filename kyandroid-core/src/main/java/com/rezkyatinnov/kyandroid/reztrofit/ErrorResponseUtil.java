@@ -19,9 +19,10 @@ public class ErrorResponseUtil {
             error = converter.convert(response.errorBody());
         } catch (Exception e) {
             if(response!=null) {
-                error.setStatus(response.code());
+                error.setCode(response.code());
+                error.setMessage(response.message());
                 try {
-                    error.setMessage(response.errorBody().string());
+                    error.setDescription(response.errorBody().string());
                 } catch (Exception e1) {
                 }
             }else {

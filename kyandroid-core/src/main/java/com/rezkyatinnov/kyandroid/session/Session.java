@@ -34,6 +34,10 @@ public class Session {
         LocalData.delete(LocalData.getRealm(), filter,SessionObject.class);
     }
 
+    public static void clear() {
+        LocalData.truncate(LocalData.getRealm(),SessionObject.class);
+    }
+
     public static List<SessionObject> getRestHeaders() throws SessionNotFoundException {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_REST_HEADER,true);

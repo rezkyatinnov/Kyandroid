@@ -28,7 +28,7 @@ public abstract class RestObserver<T> implements Observer<Response<T>> {
     public void onError(Throwable e){
             ErrorResponse errorRes = new ErrorResponse();
             errorRes.setMessage(e.getMessage());
-            errorRes.setStatus(e.hashCode());
+            errorRes.setCode(e.hashCode());
             onFailed(errorRes);
     }
 

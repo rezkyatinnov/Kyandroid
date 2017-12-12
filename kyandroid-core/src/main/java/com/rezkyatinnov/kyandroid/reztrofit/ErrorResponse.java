@@ -7,18 +7,46 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class ErrorResponse {
-    @SerializedName("status")
-    private int status;
+    @SerializedName("code")
+    private int code;
 
     @SerializedName("message")
     private String message;
+
+    @SerializedName("description")
+    private String description;
 
     private HttpStatus httpStatus;
 
     public ErrorResponse() {
         httpStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
-        this.status = httpStatus.value();
+        this.code = httpStatus.value();
         this.message = httpStatus.getReasonPhrase();
+        this.description = httpStatus.getReasonPhrase();
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public HttpStatus getHttpStatus() {
@@ -29,27 +57,12 @@ public class ErrorResponse {
         this.httpStatus = httpStatus;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     @Override
     public String toString() {
         return "ErrorResponse {" +
-                "status='" + status + '\'' +
+                "status='" + code + '\'' +
                 ", message='" + message + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

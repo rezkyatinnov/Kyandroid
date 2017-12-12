@@ -93,6 +93,16 @@ public class LocalData {
         realm.close();
     }
 
+    public static <O extends  RealmObject> void truncate(Realm realmInstance, Class<O> clazz){
+        Realm realm = realmInstance;
+        realm.beginTransaction();
+        RealmQuery<O> query = realm.where(clazz);
+        final RealmResults<O> results = query.findAll();
+        results.deleteAllFromRealm();
+        realm.commitTransaction();
+        realm.close();
+    }
+
     public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException{
         return getList(LocalData.getRealm(),filters,clazz);
     }
