@@ -6,10 +6,9 @@ group='com.github.jitpack'
 
 
 project.ext.compileSdkVersion = 26
-project.ext.buildToolsVersion = "26.0.2"
+project.ext.buildToolsVersion = "27.0.2"
 project.ext.minSdkVersion = 15
 project.ext.targetSdkVersion = 26
-project.ext.googleAPIsVersion = "26.0.1"
 
 project.ext.publishVersionCode = 25
 project.ext.publishVersionName = "1.0.0-rc8"
@@ -47,7 +46,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 
-    implementation "com.android.support:appcompat-v7:$googleAPIsVersion"
+    implementation "com.android.support:appcompat-v7:$project.buildToolsVersion"
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
