@@ -100,6 +100,17 @@ public class LocalData {
         realm.close();
     }
 
+    public static void clear() {
+        clear(LocalData.getRealm());
+    }
+
+    public static <O extends RealmObject> void clear(Realm realm) {
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
+        realm.close();
+    }
+
     public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException {
         return getList(LocalData.getRealm(), filters, clazz);
     }
