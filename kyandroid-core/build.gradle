@@ -5,17 +5,16 @@ apply plugin: 'realm-android'
 group='com.github.jitpack'
 
 
-project.ext.compileSdkVersion = 26
-project.ext.buildToolsVersion = "27.0.2"
+project.ext.compileSdkVersion = 27
+project.ext.buildToolsVersion = "27.1.1"
 project.ext.minSdkVersion = 15
-project.ext.targetSdkVersion = 26
+project.ext.targetSdkVersion = 27
 
 project.ext.publishVersionCode = 25
 project.ext.publishVersionName = "1.0.0-rc8"
 
 android {
     compileSdkVersion project.compileSdkVersion
-    buildToolsVersion project.buildToolsVersion
 
 
     defaultConfig {
@@ -38,6 +37,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -48,14 +48,14 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$project.buildToolsVersion"
 
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    api 'com.squareup.okhttp3:okhttp:3.8.1'
 
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxjava:2.1.5'
 }
 // build a jar with source files
 task sourcesJar(type: Jar) {
