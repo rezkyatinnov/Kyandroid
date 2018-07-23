@@ -36,8 +36,8 @@ public class Reztrofit<T> {
     private T endpoint;
     private String baseUrl;
     private Retrofit retrofit;
-    private List<Interceptor> interceptors = new ArrayList<>();
-    private Map<String, String> headers = new HashMap<>();
+    private List<Interceptor> interceptors;
+    private Map<String, String> headers;
     private static final Reztrofit instance = new Reztrofit();
     private OkHttpClient client = new OkHttpClient();
 

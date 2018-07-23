@@ -2,29 +2,28 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'realm-android'
 
-group='com.github.jitpack'
+group = 'com.github.jitpack'
 
 
 project.ext.compileSdkVersion = 27
-project.ext.buildToolsVersion = "27.1.1"
+project.ext.buildToolsVersion = "27.0.3"
 project.ext.minSdkVersion = 15
 project.ext.targetSdkVersion = 27
+project.ext.googleAPIsVersion = "27.1.1"
 
 project.ext.publishVersionCode = 25
 project.ext.publishVersionName = "1.0.0-rc8"
 
 android {
     compileSdkVersion project.compileSdkVersion
-
+    buildToolsVersion project.buildToolsVersion
 
     defaultConfig {
         minSdkVersion project.minSdkVersion
         targetSdkVersion project.targetSdkVersion
         versionCode project.publishVersionCode
         versionName project.publishVersionName
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -37,16 +36,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "com.android.support:appcompat-v7:$project.buildToolsVersion"
+    implementation "com.android.support:appcompat-v7:$project.googleAPIsVersion"
 
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
@@ -64,7 +62,7 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    failOnError  false
+    failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile

@@ -18,44 +18,6 @@ public class Kyandroid {
     private static Object REALM_BASEMODULE;
     private static Object[] REALM_MODULES;
 
-    /**
-     *
-     * @deprecated Do not use this method! use init(Context context,String restBaseUrl, Class restService, Object baseRealmModule, Object realmModules)
-     */
-    @Deprecated
-    public static void init(Context context,String restBaseUrl, Class restService){
-        Realm.init(context);
-        Reztrofit.getInstance().init(context,restBaseUrl,restService,false);
-        SharedPrefUtils.getInstance().init(context,SharedPrefUtils.PREFERENCES_NAME,Context.MODE_PRIVATE);
-    }
-
-    public static void init(Context context,String restBaseUrl, Class restService, Boolean enableRx, Object baseRealmModule, Object... realmModules){
-        Realm.init(context);
-        Reztrofit.getInstance().init(context,restBaseUrl,restService,enableRx);
-        SharedPrefUtils.getInstance().init(context,SharedPrefUtils.PREFERENCES_NAME,Context.MODE_PRIVATE);
-        REALM_BASEMODULE = baseRealmModule;
-        REALM_MODULES = realmModules;
-    }
-
-    /**
-     *
-     * @deprecated Do not use this method! use init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode, Object baseRealmModule, Object... realmModules)
-     */
-    @Deprecated
-    public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode){
-        Realm.init(context);
-        Reztrofit.getInstance().init(context,restBaseUrl,restService,false);
-        SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
-    }
-
-    public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode, Boolean enableRx, Object baseRealmModule, Object... realmModules){
-        Realm.init(context);
-        Reztrofit.getInstance().init(context,restBaseUrl,restService,enableRx);
-        SharedPrefUtils.getInstance().init(context,sharedPrefName,contextMode);
-        REALM_BASEMODULE = baseRealmModule;
-        REALM_MODULES = realmModules;
-    }
-
     public static void init(Context context,String restBaseUrl, Class restService, String sharedPrefName, int contextMode, String schemaName, long schemaVersion, Boolean enableRx, Object baseRealmModule, Object... realmModules){
         Realm.init(context);
         Reztrofit.getInstance().init(context,restBaseUrl,restService,enableRx);
