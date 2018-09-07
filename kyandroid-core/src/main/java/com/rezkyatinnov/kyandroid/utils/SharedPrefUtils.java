@@ -8,9 +8,9 @@ import android.content.SharedPreferences;
  */
 
 public class SharedPrefUtils {
-    public static final String PREFERENCES_NAME = "Rezkotfit";
-    public static final String PREF_INNER_TOKEN = "access_token";
-    public static final String PREF_REFRESH_TOKEN = "refresh_token";
+    private static final String PREFERENCES_NAME = "Rezkotfit";
+    private static final String PREF_INNER_TOKEN = "access_token";
+    private static final String PREF_REFRESH_TOKEN = "refresh_token";
     public static final String TAG = SharedPrefUtils.class.getName();
     private static SharedPrefUtils instance = new SharedPrefUtils();
     private static SharedPreferences sharedPreferences;
