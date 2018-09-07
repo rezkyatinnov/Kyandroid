@@ -5,6 +5,8 @@ import com.rezkyatinnov.kyandroid.session.SessionNotFoundException;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
@@ -54,8 +56,8 @@ public class LocalData {
     public static <O extends RealmObject> void saveOrUpdate(Realm realm, O object, OnTransactionCallback callback) {
         realm.executeTransactionAsync(
                 realm1 -> realm1.copyToRealmOrUpdate(object),
-                callback::onSuccess,
-                callback::onError
+                callback,
+                callback
         );
     }
 
@@ -64,16 +66,15 @@ public class LocalData {
     }
 
     public static <O extends RealmObject> O get(Realm realmInstance, QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException {
-        Realm realm = realmInstance;
-        RealmQuery<O> query = realm.where(clazz);
+        RealmQuery<O> query = realmInstance.where(clazz);
         query = filters.copyToRealmQuery(query);
         O result = query.findFirst();
         if (result != null) {
-            O finalResult = realm.copyFromRealm(result);
-            realm.close();
+            O finalResult = realmInstance.copyFromRealm(result);
+            realmInstance.close();
             return finalResult;
         }
-        realm.close();
+        realmInstance.close();
         throw new SessionNotFoundException("queried data is not found");
     }
 
@@ -111,15 +112,15 @@ public class LocalData {
         realm.close();
     }
 
-    public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException {
+    public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz) {
         return getList(LocalData.getRealm(), filters, clazz);
     }
 
-    public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz, String sortBy, Sort sort) throws LocalDataNotFoundException {
+    public static <O extends RealmObject> List<O> getList(QueryFilters filters, Class<O> clazz, String sortBy, Sort sort) {
         return getList(LocalData.getRealm(), filters, clazz, sortBy, sort);
     }
 
-    public static <O extends RealmObject> List<O> getList(Realm realm, QueryFilters filters, Class<O> clazz) throws LocalDataNotFoundException {
+    public static <O extends RealmObject> List<O> getList(Realm realm, QueryFilters filters, Class<O> clazz) {
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
         List<O> results = realm.copyFromRealm(query.findAll());
@@ -127,10 +128,11 @@ public class LocalData {
         return results;
     }
 
-    public static <O extends RealmObject> List<O> getList(Realm realm, QueryFilters filters, Class<O> clazz, String sortBy, Sort sort) throws LocalDataNotFoundException {
+    public static <O extends RealmObject> List<O> getList(Realm realm, QueryFilters filters, Class<O> clazz, String sortBy, Sort sort) {
         RealmQuery<O> query = realm.where(clazz);
         query = filters.copyToRealmQuery(query);
-        List<O> results = realm.copyFromRealm(query.findAllSorted(sortBy, sort));
+        query.sort(sortBy,sort);
+        List<O> results = realm.copyFromRealm(query.findAllAsync());
         realm.close();
         return results;
     }
@@ -138,7 +140,7 @@ public class LocalData {
     public static abstract class OnTransactionCallback implements Realm.Transaction.OnSuccess, Realm.Transaction.OnError {
 
         @Override
-        public abstract void onError(Throwable error);
+        public abstract void onError(@Nullable Throwable error);
 
         @Override
         public abstract void onSuccess();

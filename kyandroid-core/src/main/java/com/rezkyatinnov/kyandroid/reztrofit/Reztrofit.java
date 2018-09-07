@@ -1,12 +1,12 @@
 package com.rezkyatinnov.kyandroid.reztrofit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.rezkyatinnov.kyandroid.session.SessionNotFoundException;
-import com.rezkyatinnov.kyandroid.session.SessionObject;
 import com.rezkyatinnov.kyandroid.session.Session;
+import com.rezkyatinnov.kyandroid.session.SessionObject;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -15,29 +15,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.realm.RealmResults;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-//import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by rezkyatinnov on 08/08/2017.
  */
 
 public class Reztrofit<T> {
-    private Class<T> interfaceClass;
     private Context context;
 
     private T endpoint;
-    private String baseUrl;
     private Retrofit retrofit;
     private List<Interceptor> interceptors;
     private Map<String, String> headers;
+    @SuppressLint("StaticFieldLeak")
     private static final Reztrofit instance = new Reztrofit();
     private OkHttpClient client = new OkHttpClient();
 
@@ -52,8 +50,7 @@ public class Reztrofit<T> {
 
     public void init(Context context, String baseUrl, Class<T> interfaceClass, Boolean enableRx) {
         this.context = context;
-        this.baseUrl = baseUrl;
-        this.interfaceClass = interfaceClass;
+        Class<T> interfaceClass1 = interfaceClass;
 
         final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -66,14 +63,10 @@ public class Reztrofit<T> {
                     Request.Builder builder = chain.request().newBuilder();
 
                     List<SessionObject> sessionObjects;
-                    try {
-                        sessionObjects = Session.getRestHeaders();
+                    sessionObjects = Session.getRestHeaders();
 
-                        for(SessionObject session: sessionObjects){
-                            builder.addHeader(session.getKey(), session.getValue());
-                        }
-                    } catch (SessionNotFoundException e) {
-                        e.printStackTrace();
+                    for (SessionObject session : sessionObjects) {
+                        builder.addHeader(session.getKey(), session.getValue());
                     }
 
                     for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -89,14 +82,14 @@ public class Reztrofit<T> {
                 .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
                 .create();
 
-        if(enableRx) {
+        if (enableRx) {
             retrofit = new Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .baseUrl(baseUrl)
                     .build();
-        }else{
+        } else {
             retrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
@@ -104,7 +97,7 @@ public class Reztrofit<T> {
                     .build();
         }
 
-        endpoint = retrofit.create(this.interfaceClass);
+        endpoint = retrofit.create(interfaceClass1);
     }
 
     public T getEndpoint() {
@@ -143,7 +136,7 @@ public class Reztrofit<T> {
         this.client = client;
     }
 
-    public void cancelAllRequest(){
+    public void cancelAllRequest() {
         client.dispatcher().cancelAll();
     }
 }

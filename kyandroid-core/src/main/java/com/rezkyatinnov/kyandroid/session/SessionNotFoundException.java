@@ -1,8 +1,5 @@
 package com.rezkyatinnov.kyandroid.session;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
 import com.rezkyatinnov.kyandroid.localdata.LocalDataNotFoundException;
 
 /**
@@ -25,8 +22,4 @@ public class SessionNotFoundException extends LocalDataNotFoundException {
         super(cause);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public SessionNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 }

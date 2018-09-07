@@ -20,8 +20,7 @@ public class Session {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_KEY,key);
         try {
-            SessionObject result = LocalData.get(LocalData.getRealm(), filter,SessionObject.class);
-            return result;
+            return LocalData.get(LocalData.getRealm(), filter,SessionObject.class);
         } catch (LocalDataNotFoundException e) {
             e.printStackTrace();
             throw new SessionNotFoundException("SessionObject with key = '" + key +"' is not found");
@@ -38,14 +37,9 @@ public class Session {
         LocalData.truncate(LocalData.getRealm(),SessionObject.class);
     }
 
-    public static List<SessionObject> getRestHeaders() throws SessionNotFoundException {
+    public static List<SessionObject> getRestHeaders() {
         QueryFilters filter = new QueryFilters();
         filter.add(SessionObject.FIELD_REST_HEADER,true);
-        try {
-            return LocalData.getList(LocalData.getRealm(), filter,SessionObject.class);
-        } catch (LocalDataNotFoundException e) {
-            e.printStackTrace();
-            throw new SessionNotFoundException("SessionObject with "+SessionObject.FIELD_REST_HEADER+" = true is not found");
-        }
+        return LocalData.getList(LocalData.getRealm(), filter,SessionObject.class);
     }
 }
