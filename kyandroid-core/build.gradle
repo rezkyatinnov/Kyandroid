@@ -52,7 +52,7 @@ project.ext.publishVersionName = libraryVersion
 
 android {
     compileSdkVersion project.compileSdkVersion
-    buildToolsVersion project.buildToolsVersion
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         minSdkVersion project.minSdkVersion
