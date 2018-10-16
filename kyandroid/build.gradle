@@ -30,7 +30,7 @@ ext {
     siteUrl = 'https://github.com/rezkyatinnov/kyandroid'
     gitUrl = 'https://github.com/rezkyatinnov/kyandroid.git'
 
-    libraryVersion = '1.0.0-rc9'
+    libraryVersion = '1.0.0-rc10'
 
     developerId = 'rezkyatinnov'
     developerName = 'Mohamad Rezkya Feurstinnov Hairy'
@@ -44,14 +44,14 @@ ext {
 project.ext.compileSdkVersion = 28
 project.ext.minSdkVersion = 15
 project.ext.targetSdkVersion = 28
-project.ext.googleAPIsVersion = "28.0.0"
+project.ext.googleAPIsVersion = "28.0.3"
 
-project.ext.publishVersionCode = 25
+project.ext.publishVersionCode = 27
 project.ext.publishVersionName = libraryVersion
 
 android {
     compileSdkVersion project.compileSdkVersion
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion project.minSdkVersion
